@@ -40,9 +40,9 @@ def dumps(dct, as_dict=False, **kwargs):
     result_ = TypeSerializer().serialize(json.loads(json.dumps(dct, default=json_serial),
                                                     use_decimal=True))
     if as_dict:
-        return result_.iteritems().next()[1]
+        return six.iteritems(result_).next()[1]
     else:
-        return json.dumps(result_.iteritems().next()[1], **kwargs)
+        return json.dumps(six.iteritems(result_).next()[1], **kwargs)
 
 
 def object_hook(dct):
@@ -85,7 +85,7 @@ def object_hook(dct):
         return dct
 
     # In a Case of returning a regular python dict
-    for key, val in dct.iteritems():
+    for key, val in six.iteritems(dct):
         if isinstance(val, six.string_types):
             try:
                 dct[key] = datetime.strptime(val, '%Y-%m-%dT%H:%M:%S.%f')
