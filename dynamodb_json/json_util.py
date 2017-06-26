@@ -40,9 +40,9 @@ def dumps(dct, as_dict=False, **kwargs):
     result_ = TypeSerializer().serialize(json.loads(json.dumps(dct, default=json_serial),
                                                     use_decimal=True))
     if as_dict:
-        return six.iteritems(result_).next()[1]
+        return six.next(six.iteritems(result_))[1]
     else:
-        return json.dumps(six.iteritems(result_).next()[1], **kwargs)
+        return json.dumps(six.next(six.iteritems(result_))[1], **kwargs)
 
 
 def object_hook(dct):
